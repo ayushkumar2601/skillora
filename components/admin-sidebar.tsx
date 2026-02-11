@@ -9,7 +9,6 @@ import {
     LayoutDashboard,
     Menu,
     X,
-    LogOut,
     Sparkles,
     Brain,
     BookOpen,
@@ -21,6 +20,7 @@ import {
     ChevronLeft
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { LogoutButton } from './logout-button'
 
 export function AdminSidebar() {
     const pathname = usePathname()
@@ -97,10 +97,7 @@ export function AdminSidebar() {
                             <Button size="sm" className="w-full bg-white text-black hover:bg-slate-100 font-black rounded-xl h-9">Diagnostics</Button>
                         </div>
 
-                        <button className="flex items-center gap-3 w-full px-4 py-4 mt-4 text-slate-400 hover:text-destructive transition-colors rounded-2xl group">
-                            <LogOut className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                            <span className="text-sm font-bold uppercase tracking-widest text-[10px]">Terminate Session</span>
-                        </button>
+                        <LogoutButton />
                     </div>
                 </div>
             </aside>

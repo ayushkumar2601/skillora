@@ -12,7 +12,6 @@ import {
   Menu,
   X,
   Zap,
-  LogOut,
   Briefcase,
   ShieldCheck,
   Sparkles,
@@ -25,6 +24,7 @@ import {
   Target
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { LogoutButton } from './logout-button'
 
 export function StudentSidebar() {
   const pathname = usePathname()
@@ -105,10 +105,7 @@ export function StudentSidebar() {
               <p className="text-[9px] font-black text-slate-400 tracking-wider">CAREER READINESS SCORE</p>
             </div>
 
-            <button className="flex items-center gap-3 w-full px-4 py-4 mt-4 text-slate-400 hover:text-destructive transition-colors rounded-2xl group">
-              <LogOut className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-              <span className="text-sm font-bold uppercase tracking-widest text-[10px]">Log Out</span>
-            </button>
+            <LogoutButton />
           </div>
         </div>
       </aside>

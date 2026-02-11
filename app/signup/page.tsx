@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Brain, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { useState } from 'react'
+import { signUp } from '@/lib/actions/auth.actions'
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -15,12 +16,12 @@ export default function SignUpPage() {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'student',
+    role: 'student' as 'student' | 'admin',
+    department: 'Computer Science',
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [successMessage, setSuccessMessage] = useState('')
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -67,16 +68,25 @@ export default function SignUpPage() {
     }
 
     setIsSubmitting(true)
-    setSuccessMessage('Account created successfully!')
 
-    // Simulate API call
-    setTimeout(() => {
-      if (formData.role === 'student') {
-        window.location.href = '/dashboard/student'
-      } else {
-        window.location.href = '/dashboard/admin'
+    try {
+      const result = await signUp({
+        email: formData.email,
+        password: formData.password,
+        fullName: formData.name,
+        role: formData.role,
+        department: formData.department,
+      })
+
+      if (result?.error) {
+        setErrors({ general: result.error })
+        setIsSubmitting(false)
       }
-    }, 1500)
+    } catch (error: any) {
+      console.error('Signup error:', error)
+      setErrors({ general: error.message || 'An unexpected error occurred. Please try again.' })
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -103,10 +113,10 @@ export default function SignUpPage() {
               Join GROW-DEX and transform your academic journey
             </p>
 
-            {successMessage && (
-              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center gap-3">
-                <CheckCircle className="w-5 h-5 text-green-600" />
-                <span className="text-sm text-green-700">{successMessage}</span>
+            {errors.general && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 text-red-600" />
+                <span className="text-sm text-red-700">{errors.general}</span>
               </div>
             )}
 
@@ -161,7 +171,7 @@ export default function SignUpPage() {
                       name="role"
                       value="student"
                       checked={formData.role === 'student'}
-                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, role: e.target.value as 'student' | 'admin' })}
                       className="w-4 h-4"
                     />
                     <span className={formData.role === 'student' ? 'text-primary-foreground font-semibold' : ''}>
@@ -170,23 +180,42 @@ export default function SignUpPage() {
                   </label>
                   <label className="flex items-center gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-card/50 transition"
                     style={{
-                      backgroundColor: formData.role === 'institution' ? 'var(--primary)' : 'transparent',
-                      borderColor: formData.role === 'institution' ? 'var(--primary)' : 'var(--border)',
+                      backgroundColor: formData.role === 'admin' ? 'var(--primary)' : 'transparent',
+                      borderColor: formData.role === 'admin' ? 'var(--primary)' : 'var(--border)',
                     }}>
                     <input
                       type="radio"
                       name="role"
-                      value="institution"
-                      checked={formData.role === 'institution'}
-                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                      value="admin"
+                      checked={formData.role === 'admin'}
+                      onChange={(e) => setFormData({ ...formData, role: e.target.value as 'student' | 'admin' })}
                       className="w-4 h-4"
                     />
-                    <span className={formData.role === 'institution' ? 'text-primary-foreground font-semibold' : ''}>
+                    <span className={formData.role === 'admin' ? 'text-primary-foreground font-semibold' : ''}>
                       Institution Admin
                     </span>
                   </label>
                 </div>
               </div>
+
+              {/* Department Selection (only for students) */}
+              {formData.role === 'student' && (
+                <div>
+                  <label className="block text-sm font-medium mb-2">Department</label>
+                  <select
+                    name="department"
+                    value={formData.department}
+                    onChange={handleChange}
+                    className="w-full h-11 px-4 border border-border rounded-lg focus:border-primary/30 focus:outline-none bg-background"
+                  >
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Electronics">Electronics & Communication</option>
+                    <option value="Mechanical">Mechanical Engineering</option>
+                    <option value="Civil">Civil Engineering</option>
+                    <option value="Electrical">Electrical Engineering</option>
+                  </select>
+                </div>
+              )}
 
               {/* Password Input */}
               <div>
