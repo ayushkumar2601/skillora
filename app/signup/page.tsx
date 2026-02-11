@@ -18,6 +18,7 @@ export default function SignUpPage() {
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showVerificationMessage, setShowVerificationMessage] = useState(false)
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -75,6 +76,10 @@ export default function SignUpPage() {
       if (result?.error) {
         setErrors({ general: result.error })
         setIsSubmitting(false)
+      } else {
+        // Show verification message on success
+        setShowVerificationMessage(true)
+        setIsSubmitting(false)
       }
     } catch (error: any) {
       console.error('Signup error:', error)
@@ -102,10 +107,57 @@ export default function SignUpPage() {
         <div className="w-full max-w-md">
           {/* Form Card */}
           <BrutalCard className="p-8">
-            <h1 className="text-4xl font-black mb-2 uppercase tracking-tight">CREATE ACCOUNT</h1>
-            <p className="text-black font-medium mb-8 opacity-70">
-              Join GROW-DEX and transform your academic journey
-            </p>
+            {showVerificationMessage ? (
+              // Verification Message
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-brutal-secondary border-2 border-black flex items-center justify-center mx-auto mb-6">
+                  <span className="text-3xl">✓</span>
+                </div>
+                <h1 className="text-3xl font-black mb-4 uppercase tracking-tight">CHECK YOUR EMAIL</h1>
+                <p className="text-black font-medium mb-6 leading-relaxed">
+                  We've sent a verification link to <span className="font-bold">{formData.email}</span>
+                </p>
+                <div className="bg-brutal border-2 border-black p-6 mb-6 text-left">
+                  <p className="text-sm font-bold text-black mb-3 uppercase tracking-wide">NEXT STEPS:</p>
+                  <ol className="space-y-2 text-sm font-medium text-black">
+                    <li className="flex gap-2">
+                      <span className="font-black">1.</span>
+                      <span>Open your email inbox</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="font-black">2.</span>
+                      <span>Click the verification link we sent you</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="font-black">3.</span>
+                      <span>Return here and log in to your account</span>
+                    </li>
+                  </ol>
+                </div>
+                <p className="text-xs text-black font-medium mb-6 opacity-70">
+                  Didn't receive the email? Check your spam folder or contact support.
+                </p>
+                <Link href="/login">
+                  <BrutalButton variant="primary" className="w-full py-4">
+                    GO TO LOGIN
+                  </BrutalButton>
+                </Link>
+              </div>
+            ) : (
+              // Signup Form
+              <>
+                <h1 className="text-4xl font-black mb-2 uppercase tracking-tight">CREATE ACCOUNT</h1>
+                <p className="text-black font-medium mb-2 opacity-70">
+                  Join GROW-DEX and transform your academic journey
+                </p>
+                <div className="bg-brutal-secondary border-2 border-black p-3 mb-6">
+                  <p className="text-xs font-bold text-black uppercase tracking-wide flex items-center gap-2">
+                    <span className="text-lg">📧</span> EMAIL VERIFICATION REQUIRED
+                  </p>
+                  <p className="text-xs text-black font-medium mt-1">
+                    You'll need to verify your email before logging in
+                  </p>
+                </div>
 
             {errors.general && (
               <div className="mb-6 p-4 bg-white border-2 border-brutal-accent flex items-center gap-3">
@@ -218,10 +270,13 @@ export default function SignUpPage() {
                 By signing up, you agree to our Terms of Service and Privacy Policy
               </p>
             </div>
+              </>
+            )}
           </BrutalCard>
 
-          {/* Benefits Section */}
-          <div className="mt-8 space-y-4">
+          {/* Benefits Section - Only show when form is visible */}
+          {!showVerificationMessage && (
+            <div className="mt-8 space-y-4">
             {[
               { title: 'AI-POWERED STUDY PLANS', desc: 'Personalized schedules for maximum efficiency' },
               { title: 'CAREER GUIDANCE', desc: 'Real-time placement readiness tracking' },
@@ -238,6 +293,7 @@ export default function SignUpPage() {
               </div>
             ))}
           </div>
+          )}
         </div>
       </div>
     </div>
