@@ -18,9 +18,12 @@ import {
   Sparkles,
   Calendar,
   Clock,
-  ChevronRight
+  ChevronRight,
+  RefreshCw
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { updateAIMetrics } from '@/lib/actions/ai.actions'
+import { useRouter } from 'next/navigation'
 
 interface StudentDashboardClientProps {
   user: any
@@ -28,8 +31,11 @@ interface StudentDashboardClientProps {
 }
 
 export default function StudentDashboardClient({ user, dashboardData }: StudentDashboardClientProps) {
+  const router = useRouter()
   const [showWelcome, setShowWelcome] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [isCalculating, setIsCalculating] = useState(false)
+  const [calculationMessage, setCalculationMessage] = useState('')
 
   // Fix hydration mismatch by only showing welcome after mount
   useEffect(() => {
@@ -38,6 +44,29 @@ export default function StudentDashboardClient({ user, dashboardData }: StudentD
   }, [])
 
   const { student, prediction, subjectScores, upcomingTasks } = dashboardData
+
+  const handleCalculateMetrics = async () => {
+    setIsCalculating(true)
+    setCalculationMessage('Analyzing your data with AI...')
+    
+    try {
+      const result = await updateAIMetrics(user.user.id)
+      
+      if (result.error) {
+        setCalculationMessage('Error: ' + result.error)
+      } else {
+        setCalculationMessage('✓ Metrics updated successfully!')
+        setTimeout(() => {
+          router.refresh()
+          setCalculationMessage('')
+        }, 2000)
+      }
+    } catch (error) {
+      setCalculationMessage('Error calculating metrics')
+    } finally {
+      setIsCalculating(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -76,10 +105,45 @@ export default function StudentDashboardClient({ user, dashboardData }: StudentD
               <p className="text-muted-foreground font-medium">Tracking Semester {student.semester} • {student.department}</p>
             </div>
             <div className="flex gap-3">
-              <Button variant="outline" className="rounded-xl border-2 font-bold px-6 h-12 hover:bg-white transition-all">View Full Profile</Button>
-              <Button className="rounded-xl bg-secondary hover:bg-secondary/80 text-foreground font-bold px-8 h-12 shadow-lg shadow-secondary/25 hover:scale-105 transition-all">My Goals</Button>
+              <Button 
+                variant="outline" 
+                className="rounded-xl border-2 font-bold px-6 h-12 hover:bg-white transition-all"
+                onClick={() => window.location.href = '/dashboard/student/settings'}
+              >
+                Edit Profile
+              </Button>
+              <Button 
+                className="rounded-xl bg-primary hover:bg-primary/90 text-white font-bold px-8 h-12 shadow-lg shadow-primary/25 hover:scale-105 transition-all flex items-center gap-2"
+                onClick={handleCalculateMetrics}
+                disabled={isCalculating}
+              >
+                {isCalculating ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    Calculating...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    Calculate AI Metrics
+                  </>
+                )}
+              </Button>
             </div>
           </div>
+
+          {/* Calculation Message */}
+          {calculationMessage && (
+            <div className={`mb-6 p-4 rounded-xl border ${
+              calculationMessage.includes('Error') 
+                ? 'bg-red-50 border-red-200 text-red-800' 
+                : calculationMessage.includes('✓')
+                ? 'bg-green-50 border-green-200 text-green-800'
+                : 'bg-blue-50 border-blue-200 text-blue-800'
+            }`}>
+              {calculationMessage}
+            </div>
+          )}
 
           {/* Key Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
