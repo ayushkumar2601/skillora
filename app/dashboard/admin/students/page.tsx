@@ -10,11 +10,8 @@ export default async function StudentsDirectoryPage() {
     redirect('/login')
   }
 
-  if (currentUser.profile?.role !== 'admin') {
-    redirect('/dashboard/student')
-  }
-
-  const students = await getAllStudents()
+  // Redirect all users to student dashboard (admin role removed)
+  redirect('/dashboard/student')
 
   return <AdminStudentsClient user={currentUser} students={students} />
 }

@@ -10,57 +10,47 @@ export async function signUp(formData: {
   fullName: string
   department?: string
 }) {
-  try {
-    const supabase = await createClient()
+  const supabase = await createClient()
 
-    const { data, error } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password,
-      options: {
-        data: {
-          full_name: formData.fullName,
-          role: 'student', // Always student
-          department: formData.department || 'Computer Science',
-        },
+  const { data, error } = await supabase.auth.signUp({
+    email: formData.email,
+    password: formData.password,
+    options: {
+      data: {
+        full_name: formData.fullName,
+        role: 'student',
+        department: formData.department || 'Computer Science',
       },
-    })
+    },
+  })
 
-    if (error) {
-      console.error('Signup error:', error)
-      return { error: error.message }
-    }
-
-    if (!data.user) {
-      return { error: 'Failed to create user account' }
-    }
-
-    revalidatePath('/', 'layout')
-    redirect('/dashboard/student')
-  } catch (error: any) {
-    console.error('Signup exception:', error)
-    return { error: error.message || 'An unexpected error occurred during signup' }
+  if (error) {
+    console.error('Signup error:', error)
+    return { error: error.message }
   }
+
+  if (!data.user) {
+    return { error: 'Failed to create user account' }
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/dashboard/student')
 }
 
 export async function signIn(formData: { email: string; password: string }) {
-  try {
-    const supabase = await createClient()
+  const supabase = await createClient()
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: formData.email,
-      password: formData.password,
-    })
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: formData.email,
+    password: formData.password,
+  })
 
-    if (error) {
-      return { error: error.message }
-    }
-
-    revalidatePath('/', 'layout')
-    redirect('/dashboard/student')
-  } catch (error: any) {
-    console.error('Login exception:', error)
-    return { error: error.message || 'An unexpected error occurred during login' }
+  if (error) {
+    return { error: error.message }
   }
+
+  revalidatePath('/', 'layout')
+  redirect('/dashboard/student')
 }
 
 export async function signOut() {

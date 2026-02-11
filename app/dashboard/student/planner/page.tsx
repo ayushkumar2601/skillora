@@ -10,10 +10,6 @@ export default async function PlannerPage() {
     redirect('/login')
   }
 
-  if (currentUser.profile?.role !== 'student') {
-    redirect('/dashboard/admin')
-  }
-
   const tasks = await getStudentTasks(currentUser.user.id)
 
   return <StudentPlannerClient user={currentUser} tasks={tasks} />

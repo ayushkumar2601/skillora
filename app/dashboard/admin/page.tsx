@@ -10,15 +10,8 @@ export default async function AdminDashboard() {
     redirect('/login')
   }
 
-  if (currentUser.profile?.role !== 'admin') {
-    redirect('/dashboard/student')
-  }
-
-  const [stats, departmentStats, atRiskStudents] = await Promise.all([
-    getAdminDashboardStats(),
-    getDepartmentStats(),
-    getAtRiskStudents(),
-  ])
+  // Redirect all users to student dashboard (admin role removed)
+  redirect('/dashboard/student')
 
   return (
     <AdminDashboardClient

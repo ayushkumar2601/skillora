@@ -10,10 +10,6 @@ export default async function StudentDashboard() {
     redirect('/login')
   }
 
-  if (currentUser.profile?.role !== 'student') {
-    redirect('/dashboard/admin')
-  }
-
   const dashboardData = await getStudentDashboardData(currentUser.user.id)
 
   if (!dashboardData) {
