@@ -13,6 +13,26 @@ export async function getStudentDashboardData(userId: string) {
     .eq('profile_id', userId)
     .single()
 
+  // If no student record exists, return default data for new users
+  if (studentError && studentError.code === 'PGRST116') {
+    console.log('New user detected, returning default dashboard data')
+    return {
+      student: {
+        profile_id: userId,
+        gpa: 0,
+        stress_index: 0,
+        career_score: 0,
+        study_streak: 0,
+        department: 'Computer Science',
+        semester: 1,
+        year: 1
+      },
+      prediction: null,
+      subjectScores: [],
+      upcomingTasks: [],
+    }
+  }
+
   if (studentError) {
     console.error('Error fetching student:', studentError)
     return null
@@ -140,6 +160,10 @@ export async function getStudentPredictions(userId: string) {
     .single()
 
   if (error) {
+    // Return null for new users without predictions
+    if (error.code === 'PGRST116') {
+      return null
+    }
     console.error('Error fetching predictions:', error)
     return null
   }
@@ -180,6 +204,45 @@ export async function updateStudentProfile(userId: string, updates: {
     .single()
 
   if (error) {
+    return { error: error.message }
+  }
+
+  revalidatePath('/dashboard/student')
+  return { data }
+}
+
+export async function initializeStudentRecord(userId: string, department: string = 'Computer Science') {
+  const supabase = await createClient()
+
+  // Check if student record already exists
+  const { data: existing } = await supabase
+    .from('students')
+    .select('*')
+    .eq('profile_id', userId)
+    .single()
+
+  if (existing) {
+    return { data: existing }
+  }
+
+  // Create new student record
+  const { data, error } = await supabase
+    .from('students')
+    .insert([{
+      profile_id: userId,
+      gpa: 0,
+      stress_index: 50,
+      career_score: 0,
+      study_streak: 0,
+      department: department,
+      semester: 1,
+      year: 1
+    }])
+    .select()
+    .single()
+
+  if (error) {
+    console.error('Error initializing student record:', error)
     return { error: error.message }
   }
 
