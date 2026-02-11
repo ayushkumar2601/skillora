@@ -167,7 +167,7 @@ function LoginContent() {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary/90 h-11 disabled:opacity-70"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-11 disabled:opacity-70 font-semibold"
               >
                 {isSubmitting ? 'Signing In...' : 'Sign In'}
                 {!isSubmitting && <ArrowRight className="w-4 h-4 ml-2" />}
@@ -184,13 +184,13 @@ function LoginContent() {
 
             {/* Demo Credentials */}
             <div className="mt-8 pt-8 border-t border-border">
-              <p className="text-xs text-muted-foreground font-semibold mb-3">Demo Credentials</p>
+              <p className="text-xs text-foreground font-semibold mb-3">Demo Credentials</p>
               <div className="space-y-2">
-                <div className="p-3 rounded-lg bg-card/50 border border-border">
-                  <p className="text-xs"><span className="font-semibold">Student:</span> demo@student.com</p>
+                <div className="p-3 rounded-lg bg-slate-100 border border-slate-200">
+                  <p className="text-xs text-slate-900"><span className="font-semibold">Student:</span> demo@student.com</p>
                 </div>
-                <div className="p-3 rounded-lg bg-card/50 border border-border">
-                  <p className="text-xs"><span className="font-semibold">Admin:</span> admin@institution.com</p>
+                <div className="p-3 rounded-lg bg-slate-100 border border-slate-200">
+                  <p className="text-xs text-slate-900"><span className="font-semibold">Admin:</span> admin@institution.com</p>
                 </div>
               </div>
             </div>

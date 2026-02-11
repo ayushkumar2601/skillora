@@ -214,7 +214,7 @@ export default function SignUpPage() {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary/90 h-11 disabled:opacity-70"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-11 disabled:opacity-70 font-semibold"
               >
                 {isSubmitting ? 'Creating Account...' : 'Create Account'}
                 {!isSubmitting && <ArrowRight className="w-4 h-4 ml-2" />}
@@ -231,7 +231,7 @@ export default function SignUpPage() {
 
             {/* Divider */}
             <div className="mt-8 pt-8 border-t border-border">
-              <p className="text-xs text-muted-foreground text-center mb-4">
+              <p className="text-xs text-slate-600 text-center mb-4">
                 By signing up, you agree to our Terms of Service and Privacy Policy
               </p>
             </div>
@@ -240,30 +240,30 @@ export default function SignUpPage() {
           {/* Benefits Section */}
           <div className="mt-8 space-y-4">
             <div className="flex gap-3 items-start">
-              <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-xs font-bold text-secondary">✓</span>
+              <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-xs font-bold text-white">✓</span>
               </div>
               <div>
-                <p className="font-semibold text-sm">AI-Powered Study Plans</p>
-                <p className="text-xs text-muted-foreground">Personalized schedules for maximum efficiency</p>
+                <p className="font-semibold text-sm text-slate-900">AI-Powered Study Plans</p>
+                <p className="text-xs text-slate-600">Personalized schedules for maximum efficiency</p>
               </div>
             </div>
             <div className="flex gap-3 items-start">
-              <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-xs font-bold text-secondary">✓</span>
+              <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-xs font-bold text-white">✓</span>
               </div>
               <div>
-                <p className="font-semibold text-sm">Career Guidance</p>
-                <p className="text-xs text-muted-foreground">Real-time placement readiness tracking</p>
+                <p className="font-semibold text-sm text-slate-900">Career Guidance</p>
+                <p className="text-xs text-slate-600">Real-time placement readiness tracking</p>
               </div>
             </div>
             <div className="flex gap-3 items-start">
-              <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-xs font-bold text-secondary">✓</span>
+              <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-xs font-bold text-white">✓</span>
               </div>
               <div>
-                <p className="font-semibold text-sm">Wellness Support</p>
-                <p className="text-xs text-muted-foreground">Stress tracking and burnout prevention</p>
+                <p className="font-semibold text-sm text-slate-900">Wellness Support</p>
+                <p className="text-xs text-slate-600">Stress tracking and burnout prevention</p>
               </div>
             </div>
           </div>

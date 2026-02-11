@@ -49,7 +49,7 @@ export default function Home() {
             {/* Auth Buttons */}
             <div className="hidden md:flex items-center gap-4">
               <Link href="/login">
-                <Button variant="ghost" className="font-bold text-slate-700 hover:bg-slate-100/50 rounded-xl px-6">
+                <Button variant="ghost" className="font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-xl px-6">
                   Login
                 </Button>
               </Link>
@@ -96,7 +96,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/login">
-                  <Button variant="outline" className="w-full sm:w-auto bg-white/50 backdrop-blur rounded-2xl font-black px-10 h-14 text-lg border-2 border-slate-200 hover:bg-white transition-all">
+                  <Button variant="outline" className="w-full sm:w-auto bg-white/50 backdrop-blur rounded-2xl font-black px-10 h-14 text-lg border-2 border-slate-200 hover:bg-white hover:text-slate-900 transition-all">
                     Login
                   </Button>
                 </Link>
@@ -172,13 +172,13 @@ export default function Home() {
       {/* Trust Markers */}
       <section className="bg-slate-900 py-16">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-xs font-black text-slate-500 uppercase tracking-[0.4em] mb-10">Powering Modern Academia</p>
-          <div className="flex flex-wrap justify-center gap-12 opacity-30 grayscale invert">
+          <p className="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-10">Powering Modern Academia</p>
+          <div className="flex flex-wrap justify-center gap-12 opacity-60">
             {/* Mock Logos */}
-            <div className="text-2xl font-black text-white italic">UNIVERSITY PRO</div>
-            <div className="text-2xl font-black text-white">TECH ACADEMY</div>
-            <div className="text-2xl font-black text-white tracking-widest underline">EDU-LINK</div>
-            <div className="text-2xl font-black text-white italic">INSTITUTE-X</div>
+            <div className="text-2xl font-black text-slate-300 italic">UNIVERSITY PRO</div>
+            <div className="text-2xl font-black text-slate-300">TECH ACADEMY</div>
+            <div className="text-2xl font-black text-slate-300 tracking-widest underline">EDU-LINK</div>
+            <div className="text-2xl font-black text-slate-300 italic">INSTITUTE-X</div>
           </div>
         </div>
       </section>
@@ -236,8 +236,8 @@ export default function Home() {
               <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-tight">Empower Your Institution with <span className="text-primary">Intelligence</span></h2>
               <p className="text-slate-400 text-lg md:text-xl font-medium mb-12">Join forward-thinking universities using GROW-DEX to eliminate student attrition and maximize placement success.</p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button className="bg-white text-black hover:bg-slate-100 rounded-2xl font-black px-12 h-16 text-lg">Partner with Us</Button>
-                <Button variant="outline" className="text-white border-white/20 hover:bg-white/10 rounded-2xl font-black px-12 h-16 text-lg">Platform Demo</Button>
+                <Button className="bg-white text-slate-900 hover:bg-slate-100 rounded-2xl font-black px-12 h-16 text-lg shadow-lg">Partner with Us</Button>
+                <Button variant="outline" className="text-white border-2 border-white/40 hover:bg-white/20 hover:border-white/60 rounded-2xl font-black px-12 h-16 text-lg">Platform Demo</Button>
               </div>
             </div>
           </div>
