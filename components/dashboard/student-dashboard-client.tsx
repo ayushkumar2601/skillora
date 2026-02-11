@@ -146,7 +146,7 @@ export default function StudentDashboardClient({ user, dashboardData }: StudentD
           )}
 
           {/* Key Metrics */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 mt-8">
             {[
               { label: 'Current GPA', value: (student.gpa || 0).toFixed(2), icon: BarChart3, color: 'text-primary', bg: 'bg-primary/10', trend: 'This semester' },
               { label: 'Career Ready', value: (student.career_score || 0) + '%', icon: Target, color: 'text-secondary', bg: 'bg-secondary/10', trend: prediction ? `${prediction.placement_probability}% placement` : 'Calculating...' },
