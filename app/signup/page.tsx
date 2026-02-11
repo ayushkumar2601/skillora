@@ -1,14 +1,11 @@
 'use client'
 
 import React from "react"
-
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card } from '@/components/ui/card'
-import { Brain, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
+import { Brain, ArrowRight, AlertCircle } from 'lucide-react'
 import { useState } from 'react'
 import { signUp } from '@/lib/actions/auth.actions'
+import { BrutalButton, BrutalCard, BrutalInput } from '@/components/brutal'
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({
@@ -51,7 +48,6 @@ export default function SignUpPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    // Clear error for this field
     if (errors[name]) {
       setErrors(prev => { const newErrors = { ...prev }; delete newErrors[name]; return newErrors })
     }
@@ -88,15 +84,15 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="min-h-screen bg-brutal text-black flex flex-col">
       {/* Header */}
-      <header className="border-b border-border">
+      <header className="border-b-4 border-black bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <Brain className="w-5 h-5 text-primary-foreground" />
+            <div className="w-10 h-10 bg-black border-2 border-black flex items-center justify-center">
+              <Brain className="w-6 h-6 text-white" />
             </div>
-            <span className="font-bold text-xl">GROW-DEX</span>
+            <span className="font-black text-xl uppercase tracking-tighter">GROW-DEX</span>
           </Link>
         </div>
       </header>
@@ -105,64 +101,50 @@ export default function SignUpPage() {
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
         <div className="w-full max-w-md">
           {/* Form Card */}
-          <Card className="p-8 border-border">
-            <h1 className="text-3xl font-bold mb-2">Create Account</h1>
-            <p className="text-muted-foreground mb-8">
+          <BrutalCard className="p-8">
+            <h1 className="text-4xl font-black mb-2 uppercase tracking-tight">CREATE ACCOUNT</h1>
+            <p className="text-black font-medium mb-8 opacity-70">
               Join GROW-DEX and transform your academic journey
             </p>
 
             {errors.general && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600" />
-                <span className="text-sm text-red-700">{errors.general}</span>
+              <div className="mb-6 p-4 bg-white border-2 border-brutal-accent flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 text-brutal-accent flex-shrink-0" />
+                <span className="text-sm font-medium text-black">{errors.general}</span>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name Input */}
-              <div>
-                <label className="block text-sm font-medium mb-2">Full Name</label>
-                <Input
-                  type="text"
-                  placeholder="Your full name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`w-full ${errors.name ? 'border-red-500' : ''}`}
-                />
-                {errors.name && (
-                  <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" /> {errors.name}
-                  </p>
-                )}
-              </div>
+              <BrutalInput
+                type="text"
+                placeholder="Your full name"
+                name="name"
+                label="FULL NAME"
+                value={formData.name}
+                onChange={handleChange}
+                error={errors.name}
+              />
 
               {/* Email Input */}
-              <div>
-                <label className="block text-sm font-medium mb-2">Email Address</label>
-                <Input
-                  type="email"
-                  placeholder="your@email.com"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`w-full ${errors.email ? 'border-red-500' : ''}`}
-                />
-                {errors.email && (
-                  <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
-                    <AlertCircle className="w-4 h-4" /> {errors.email}
-                  </p>
-                )}
-              </div>
+              <BrutalInput
+                type="email"
+                placeholder="your@email.com"
+                name="email"
+                label="EMAIL ADDRESS"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+              />
 
               {/* Department Selection */}
               <div>
-                <label className="block text-sm font-medium mb-2">Department</label>
+                <label className="brutal-label block mb-2 text-black">DEPARTMENT</label>
                 <select
                   name="department"
                   value={formData.department}
                   onChange={handleChange}
-                  className="w-full h-11 px-4 border border-border rounded-lg focus:border-primary/30 focus:outline-none bg-background"
+                  className="brutal-input w-full font-medium"
                 >
                   <option value="Computer Science">Computer Science</option>
                   <option value="Electronics">Electronics & Communication</option>
@@ -174,98 +156,87 @@ export default function SignUpPage() {
 
               {/* Password Input */}
               <div>
-                <label className="block text-sm font-medium mb-2">Password</label>
-                <Input
+                <label className="brutal-label block mb-2 text-black">PASSWORD</label>
+                <input
                   type="password"
                   placeholder="Enter password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full ${errors.password ? 'border-red-500' : ''}`}
+                  className={`brutal-input w-full ${errors.password ? 'border-brutal-accent' : ''}`}
                 />
                 {errors.password ? (
-                  <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                  <p className="text-brutal-accent text-sm font-medium mt-1 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" /> {errors.password}
                   </p>
                 ) : (
-                  <p className="text-xs text-muted-foreground mt-2">At least 8 characters</p>
+                  <p className="text-xs text-black font-medium mt-2 opacity-70">At least 8 characters</p>
                 )}
               </div>
 
               {/* Confirm Password Input */}
               <div>
-                <label className="block text-sm font-medium mb-2">Confirm Password</label>
-                <Input
+                <label className="brutal-label block mb-2 text-black">CONFIRM PASSWORD</label>
+                <input
                   type="password"
                   placeholder="Confirm password"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`w-full ${errors.confirmPassword ? 'border-red-500' : ''}`}
+                  className={`brutal-input w-full ${errors.confirmPassword ? 'border-brutal-accent' : ''}`}
                 />
                 {errors.confirmPassword && (
-                  <p className="text-sm text-red-500 mt-1 flex items-center gap-1">
+                  <p className="text-brutal-accent text-sm font-medium mt-1 flex items-center gap-1">
                     <AlertCircle className="w-4 h-4" /> {errors.confirmPassword}
                   </p>
                 )}
               </div>
 
               {/* Submit Button */}
-              <Button 
+              <BrutalButton 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground h-11 disabled:opacity-70 font-semibold"
+                variant="primary"
+                className="w-full py-4 disabled:opacity-50"
               >
-                {isSubmitting ? 'Creating Account...' : 'Create Account'}
-                {!isSubmitting && <ArrowRight className="w-4 h-4 ml-2" />}
-              </Button>
+                {isSubmitting ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT'}
+                {!isSubmitting && <ArrowRight className="w-4 h-4 ml-2 inline" />}
+              </BrutalButton>
 
               {/* Login Link */}
-              <p className="text-center text-sm text-muted-foreground">
+              <p className="text-center text-sm font-medium text-black">
                 Already have an account?{' '}
-                <Link href="/login" className="text-primary hover:text-primary/80 font-semibold">
+                <Link href="/login" className="text-brutal-accent hover:text-black font-bold uppercase">
                   Sign in
                 </Link>
               </p>
             </form>
 
-            {/* Divider */}
-            <div className="mt-8 pt-8 border-t border-border">
-              <p className="text-xs text-slate-600 text-center mb-4">
+            {/* Terms */}
+            <div className="mt-8 pt-8 border-t-2 border-black">
+              <p className="text-xs text-black font-medium text-center opacity-70">
                 By signing up, you agree to our Terms of Service and Privacy Policy
               </p>
             </div>
-          </Card>
+          </BrutalCard>
 
           {/* Benefits Section */}
           <div className="mt-8 space-y-4">
-            <div className="flex gap-3 items-start">
-              <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-xs font-bold text-white">✓</span>
+            {[
+              { title: 'AI-POWERED STUDY PLANS', desc: 'Personalized schedules for maximum efficiency' },
+              { title: 'CAREER GUIDANCE', desc: 'Real-time placement readiness tracking' },
+              { title: 'WELLNESS SUPPORT', desc: 'Stress tracking and burnout prevention' }
+            ].map((benefit, i) => (
+              <div key={i} className="flex gap-3 items-start">
+                <div className="w-6 h-6 bg-brutal-secondary border-2 border-black flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-xs font-black text-black">✓</span>
+                </div>
+                <div>
+                  <p className="font-black text-sm text-black uppercase tracking-tight">{benefit.title}</p>
+                  <p className="text-xs text-black font-medium opacity-70">{benefit.desc}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-sm text-slate-900">AI-Powered Study Plans</p>
-                <p className="text-xs text-slate-600">Personalized schedules for maximum efficiency</p>
-              </div>
-            </div>
-            <div className="flex gap-3 items-start">
-              <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-xs font-bold text-white">✓</span>
-              </div>
-              <div>
-                <p className="font-semibold text-sm text-slate-900">Career Guidance</p>
-                <p className="text-xs text-slate-600">Real-time placement readiness tracking</p>
-              </div>
-            </div>
-            <div className="flex gap-3 items-start">
-              <div className="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-xs font-bold text-white">✓</span>
-              </div>
-              <div>
-                <p className="font-semibold text-sm text-slate-900">Wellness Support</p>
-                <p className="text-xs text-slate-600">Stress tracking and burnout prevention</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Button } from '@/components/ui/button'
 import {
   BarChart3,
   BookOpen,
@@ -17,7 +16,6 @@ import {
   Sparkles,
   Brain,
   ChevronRight,
-  ChevronLeft,
   MessageSquare,
   Globe,
   LineChart,
@@ -41,68 +39,68 @@ export function StudentSidebar() {
   }, [])
 
   const navItems = [
-    { name: 'Dashboard', href: '/dashboard/student', icon: Brain },
-    { name: 'AI Assistant', href: '/dashboard/student/assistant', icon: MessageSquare },
-    { name: 'Study Planner', href: '/dashboard/student/planner', icon: BookOpen },
-    { name: 'Skill Mastery', href: '/dashboard/student/skills', icon: Target },
-    { name: 'Career Path', href: '/dashboard/student/career', icon: Briefcase },
-    { name: 'Opportunities', href: '/dashboard/student/opportunities', icon: Globe },
-    { name: 'Future Predictions', href: '/dashboard/student/predictions', icon: LineChart },
-    { name: 'Wellness Tracker', href: '/dashboard/student/wellness', icon: AlertCircle },
+    { name: 'DASHBOARD', href: '/dashboard/student', icon: Brain },
+    { name: 'AI ASSISTANT', href: '/dashboard/student/assistant', icon: MessageSquare },
+    { name: 'STUDY PLANNER', href: '/dashboard/student/planner', icon: BookOpen },
+    { name: 'SKILL MASTERY', href: '/dashboard/student/skills', icon: Target },
+    { name: 'CAREER PATH', href: '/dashboard/student/career', icon: Briefcase },
+    { name: 'OPPORTUNITIES', href: '/dashboard/student/opportunities', icon: Globe },
+    { name: 'PREDICTIONS', href: '/dashboard/student/predictions', icon: LineChart },
+    { name: 'WELLNESS', href: '/dashboard/student/wellness', icon: AlertCircle },
   ]
 
   return (
     <>
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="fixed top-4 left-4 z-50 p-2 bg-white rounded-xl border-2 border-slate-100 lg:hidden shadow-sm"
-      >
+        className="fixed top-4 left-4 z-50 p-3 bg-white border-2 border-black lg:hidden shadow-brutal"
+        >
         {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
 
       <aside
-        className={`fixed left-0 top-0 bottom-0 w-72 bg-card/80 backdrop-blur-3xl border-r border-white/20 transition-all duration-500 ease-in-out z-40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} shadow-[4px_0_24px_rgba(0,0,0,0.02)]`}
+        className={`brutal-sidebar fixed left-0 top-0 bottom-0 w-72 transition-all duration-300 ease-in-out z-40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="flex flex-col h-full p-6">
           <div className="flex items-center gap-3 mb-10 px-2 mt-4">
-            <div className="w-10 h-10 rounded-2xl bg-secondary flex items-center justify-center shadow-lg shadow-secondary/20">
-              <Sparkles className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 bg-black border-2 border-black flex items-center justify-center">
+              <Sparkles className="w-7 h-7 text-white" />
             </div>
             <div>
-              <span className="font-black text-xl tracking-tighter text-slate-900 block leading-none">GROW-DEX</span>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-secondary">Student Portal</span>
+              <span className="font-black text-xl tracking-tighter text-black block leading-none uppercase">GROW-DEX</span>
+              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-black opacity-50">STUDENT PORTAL</span>
             </div>
           </div>
 
-          <nav className="flex-1 space-y-1.5 overflow-y-auto pr-2 custom-scrollbar">
+          <nav className="flex-1 space-y-0 overflow-y-auto">
             {navItems.map((item) => {
               const active = pathname === item.href
               return (
                 <Link key={item.name} href={item.href}>
-                  <div className={`flex items-center justify-between group px-4 py-3.5 rounded-2xl transition-all duration-300 ${active ? 'bg-secondary text-white shadow-lg shadow-secondary/25 translate-x-1' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}>
+                  <div className={`brutal-sidebar-item flex items-center justify-between px-4 py-4 transition-all duration-150 ${active ? 'brutal-sidebar-item-active' : ''}`}>
                     <div className="flex items-center gap-3">
-                      <item.icon className={`w-5 h-5 transition-transform duration-300 ${active ? 'scale-110' : 'group-hover:scale-110'}`} />
-                      <span className={`text-sm font-bold tracking-tight ${active ? 'font-black' : ''}`}>{item.name}</span>
+                      <item.icon className="w-5 h-5" />
+                      <span className="text-sm font-bold tracking-tight">{item.name}</span>
                     </div>
-                    {active && <ChevronRight className="w-4 h-4 opacity-50" />}
+                    {active && <ChevronRight className="w-4 h-4" />}
                   </div>
                 </Link>
               )
             })}
           </nav>
 
-          <div className="mt-6 pt-6 border-t border-slate-100">
-            <div className="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 relative overflow-hidden group">
+          <div className="mt-6 pt-6 border-t-2 border-black">
+            <div className="p-6 bg-brutal-secondary border-2 border-black mb-4">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
-                  <ShieldCheck className="w-4 h-4" />
+                <div className="w-8 h-8 bg-black border-2 border-black flex items-center justify-center">
+                  <ShieldCheck className="w-4 h-4 text-white" />
                 </div>
-                <span className="text-xs font-black text-slate-700">78% READY</span>
+                <span className="text-xs font-black text-black uppercase tracking-wide">78% READY</span>
               </div>
-              <div className="h-1.5 w-full bg-slate-200 rounded-full overflow-hidden mb-3">
-                <div className="h-full bg-secondary w-[78%]" />
+              <div className="brutal-progress mb-3">
+                <div className="brutal-progress-bar" style={{ width: '78%' }} />
               </div>
-              <p className="text-[9px] font-black text-slate-400 tracking-wider">CAREER READINESS SCORE</p>
+              <p className="text-[9px] font-black text-black tracking-wider uppercase opacity-70">CAREER READINESS</p>
             </div>
 
             <LogoutButton />

@@ -61,11 +61,24 @@ const config: Config = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        brutal: {
+          black: '#000000',
+          white: '#FFFFFF',
+          bg: '#F5F5F5',
+          accent: '#FF3366',
+          secondary: '#2CEAA3',
+        }
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        none: '0'
+      },
+      boxShadow: {
+        'brutal': '6px 6px 0 0 #000',
+        'brutal-lg': '8px 8px 0 0 #000',
+        'brutal-sm': '4px 4px 0 0 #000',
       },
       keyframes: {
         'accordion-down': {

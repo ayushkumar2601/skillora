@@ -1,69 +1,51 @@
 'use client'
 
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import {
-  Menu,
-  X,
-  BookOpen,
-  Brain,
-  TrendingUp,
-  AlertCircle,
-  CheckCircle,
-  Zap,
-  ArrowRight,
-  ChevronRight,
-  Sparkles,
-  ShieldCheck,
-  Globe,
-  BarChart3,
-  Target
-} from 'lucide-react'
+import { Brain, TrendingUp, AlertCircle, Target, BarChart3, Zap, ShieldCheck, Globe, ChevronRight, Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import { BrutalButton, BrutalCard, BrutalBadge } from '@/components/brutal'
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-indigo-100 selection:text-indigo-900">
+    <div className="min-h-screen bg-brutal text-black">
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-white/20">
+      <nav className="sticky top-0 z-50 bg-white border-b-4 border-black">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="flex justify-between items-center h-20">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary shadow-lg shadow-primary/25 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Brain className="w-6 h-6 text-primary-foreground" />
+              <div className="w-12 h-12 bg-black border-2 border-black flex items-center justify-center">
+                <Brain className="w-7 h-7 text-white" />
               </div>
-              <span className="font-black text-2xl tracking-tighter text-slate-900 leading-none">GROW-DEX</span>
+              <span className="font-black text-2xl tracking-tighter text-black uppercase">GROW-DEX</span>
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center gap-10">
-              <Link href="#" className="text-sm font-bold text-slate-600 hover:text-primary transition-colors">Features</Link>
-              <Link href="#" className="text-sm font-bold text-slate-600 hover:text-primary transition-colors">Intelligence</Link>
-              <Link href="#" className="text-sm font-bold text-slate-600 hover:text-primary transition-colors">Institutions</Link>
+            <div className="hidden md:flex items-center gap-8">
+              <Link href="#features" className="text-sm font-bold text-black hover:text-brutal-accent transition-colors uppercase tracking-wide">Features</Link>
+              <Link href="#intelligence" className="text-sm font-bold text-black hover:text-brutal-accent transition-colors uppercase tracking-wide">Intelligence</Link>
+              <Link href="#institutions" className="text-sm font-bold text-black hover:text-brutal-accent transition-colors uppercase tracking-wide">Institutions</Link>
             </div>
 
             {/* Auth Buttons */}
             <div className="hidden md:flex items-center gap-4">
               <Link href="/login">
-                <Button variant="ghost" className="font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 rounded-xl px-6">
+                <BrutalButton variant="default">
                   Login
-                </Button>
+                </BrutalButton>
               </Link>
               <Link href="/signup">
-                <Button className="bg-slate-900 text-white hover:bg-slate-800 rounded-xl font-black px-8 h-12 shadow-xl shadow-slate-900/10">
+                <BrutalButton variant="primary">
                   Begin Journey
-                </Button>
+                </BrutalButton>
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors"
+              className="md:hidden p-2 border-2 border-black hover:bg-black hover:text-white transition-colors"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -72,172 +54,163 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
-        {/* Background Accents */}
-        <div className="absolute top-0 right-0 w-[40%] h-[50%] bg-primary/10 rounded-full blur-[120px] -z-10 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[50%] h-[60%] bg-secondary/10 rounded-full blur-[120px] -z-10" />
-
+      <section className="py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="text-center lg:text-left">
-              <Badge className="bg-primary/10 text-primary border-none font-black tracking-[0.2em] mb-6 px-4 py-1.5 uppercase text-[10px]">
-                AI-Driven Academic Excellence
-              </Badge>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 leading-[0.9] mb-8">
-                The Intelligence Layer for <span className="text-primary italic">Student Success</span>
+            <div>
+              <BrutalBadge variant="accent" className="mb-6">
+                AI-DRIVEN ACADEMIC EXCELLENCE
+              </BrutalBadge>
+              <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-black leading-[0.95] mb-8">
+                THE INTELLIGENCE LAYER FOR <span className="bg-brutal-accent text-white px-2">STUDENT SUCCESS</span>
               </h1>
-              <p className="text-lg md:text-xl text-slate-600 font-medium mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-lg md:text-xl text-black font-medium mb-10 leading-relaxed">
                 Transform institutional performance with personalized study protocols, predictive career roadmaps, and deep academic AI insights.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/signup">
-                  <Button className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground font-black px-10 h-14 rounded-2xl text-lg shadow-2xl shadow-primary/30 hover:scale-105 transition-all">
-                    Start Now <ChevronRight className="w-5 h-5 ml-2" />
-                  </Button>
+                  <BrutalButton variant="primary" className="w-full sm:w-auto px-10 py-4 text-lg">
+                    START NOW <ChevronRight className="w-5 h-5 ml-2 inline" />
+                  </BrutalButton>
                 </Link>
                 <Link href="/login">
-                  <Button variant="outline" className="w-full sm:w-auto bg-white/50 backdrop-blur rounded-2xl font-black px-10 h-14 text-lg border-2 border-slate-200 hover:bg-white hover:text-slate-900 transition-all">
-                    Login
-                  </Button>
+                  <BrutalButton variant="default" className="w-full sm:w-auto px-10 py-4 text-lg">
+                    LOGIN
+                  </BrutalButton>
                 </Link>
               </div>
 
-              <div className="mt-12 flex items-center justify-center lg:justify-start gap-8 grayscale opacity-50 group border-t border-slate-100 pt-8 mt-16 max-w-lg mx-auto lg:mx-0">
-                <div className="flex flex-col">
-                  <span className="text-2xl font-black text-slate-900">2.4k+</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Students</span>
+              <div className="mt-16 grid grid-cols-3 gap-8 border-t-2 border-black pt-8">
+                <div>
+                  <div className="text-4xl font-black text-black">2.4K+</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-black opacity-70 mt-1">Students</div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-2xl font-black text-slate-900">92%</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Success Rate</span>
+                <div>
+                  <div className="text-4xl font-black text-black">92%</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-black opacity-70 mt-1">Success</div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-2xl font-black text-slate-900">12+</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Institutions</span>
+                <div>
+                  <div className="text-4xl font-black text-black">12+</div>
+                  <div className="text-xs font-bold uppercase tracking-widest text-black opacity-70 mt-1">Institutions</div>
                 </div>
               </div>
             </div>
 
-            {/* Premium Illustration */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-[3rem] blur-3xl opacity-20 group-hover:opacity-40 transition-opacity" />
-              <Card className="glass-card rounded-[2.5rem] p-10 border-white/40 shadow-2xl relative z-10 overflow-hidden transform group-hover:translate-y-[-10px] transition-transform duration-700">
-                <div className="absolute top-0 right-0 p-8">
-                  <Sparkles className="w-8 h-8 text-primary animate-pulse" />
-                </div>
-                <div className="space-y-10">
-                  <div className="flex gap-6 items-center">
-                    <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                      <Zap className="w-8 h-8 text-primary" />
+            {/* Hero Card */}
+            <div>
+              <BrutalCard className="p-10">
+                <div className="space-y-8">
+                  <div className="flex gap-6 items-start">
+                    <div className="w-16 h-16 bg-black border-2 border-black flex items-center justify-center flex-shrink-0">
+                      <Zap className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <p className="text-slate-900 font-black text-xl">Real-time Optimization</p>
-                      <p className="text-slate-500 font-medium text-sm">AI adjusting schedules in milliseconds</p>
+                      <p className="text-black font-black text-xl mb-1">REAL-TIME OPTIMIZATION</p>
+                      <p className="text-black font-medium text-sm opacity-70">AI adjusting schedules in milliseconds</p>
                     </div>
                   </div>
-                  <div className="flex gap-6 items-center translate-x-12 opacity-80 scale-95 blur-[1px]">
-                    <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center">
-                      <ShieldCheck className="w-8 h-8 text-secondary" />
+                  <div className="flex gap-6 items-start">
+                    <div className="w-16 h-16 bg-brutal-secondary border-2 border-black flex items-center justify-center flex-shrink-0">
+                      <ShieldCheck className="w-8 h-8 text-black" />
                     </div>
                     <div>
-                      <p className="text-slate-900 font-bold text-xl">Placement Prediction</p>
-                      <p className="text-slate-500 font-medium text-sm">94% Accuracy on student outcomes</p>
+                      <p className="text-black font-black text-xl mb-1">PLACEMENT PREDICTION</p>
+                      <p className="text-black font-medium text-sm opacity-70">94% accuracy on student outcomes</p>
                     </div>
                   </div>
-                  <div className="flex gap-6 items-center">
-                    <div className="w-16 h-16 rounded-2xl bg-slate-900 flex items-center justify-center">
+                  <div className="flex gap-6 items-start">
+                    <div className="w-16 h-16 bg-brutal-accent border-2 border-black flex items-center justify-center flex-shrink-0">
                       <Globe className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <p className="text-slate-900 font-black text-xl">Global Benchmarking</p>
-                      <p className="text-slate-500 font-medium text-sm">Measure against industry standards</p>
+                      <p className="text-black font-black text-xl mb-1">GLOBAL BENCHMARKING</p>
+                      <p className="text-black font-medium text-sm opacity-70">Measure against industry standards</p>
                     </div>
                   </div>
                 </div>
-
-                <div className="mt-12 pt-8 border-t border-slate-100 flex items-center justify-between">
-                  <div className="flex -space-x-3">
-                    {[1, 2, 3, 4].map(i => (
-                      <div key={i} className={`w-10 h-10 rounded-full border-2 border-white bg-slate-200`} />
-                    ))}
-                  </div>
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">JOINED THIS WEEK</p>
-                </div>
-              </Card>
+              </BrutalCard>
             </div>
           </div>
         </div>
       </section>
 
       {/* Trust Markers */}
-      <section className="bg-slate-900 py-16">
+      <section className="bg-black py-16 border-y-4 border-black">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-xs font-black text-slate-400 uppercase tracking-[0.4em] mb-10">Powering Modern Academia</p>
-          <div className="flex flex-wrap justify-center gap-12 opacity-60">
-            {/* Mock Logos */}
-            <div className="text-2xl font-black text-slate-300 italic">UNIVERSITY PRO</div>
-            <div className="text-2xl font-black text-slate-300">TECH ACADEMY</div>
-            <div className="text-2xl font-black text-slate-300 tracking-widest underline">EDU-LINK</div>
-            <div className="text-2xl font-black text-slate-300 italic">INSTITUTE-X</div>
+          <p className="text-xs font-black text-white uppercase tracking-[0.4em] mb-10 opacity-50">POWERING MODERN ACADEMIA</p>
+          <div className="flex flex-wrap justify-center gap-12">
+            <div className="text-2xl font-black text-white uppercase tracking-wider">UNIVERSITY PRO</div>
+            <div className="text-2xl font-black text-white uppercase tracking-wider">TECH ACADEMY</div>
+            <div className="text-2xl font-black text-white uppercase tracking-wider">EDU-LINK</div>
+            <div className="text-2xl font-black text-white uppercase tracking-wider">INSTITUTE-X</div>
           </div>
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="py-32 bg-white relative">
+      <section id="features" className="py-32 bg-brutal">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="max-w-2xl mb-20">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6">Revolutionary Tools for the <span className="text-primary italic">New Age</span></h2>
-            <p className="text-lg text-slate-600 font-medium">We've dismantled the traditional dashboard and replaced it with a dynamic, AI-driven experience.</p>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-black mb-6 uppercase">
+              REVOLUTIONARY TOOLS FOR THE <span className="bg-black text-white px-2">NEW AGE</span>
+            </h2>
+            <p className="text-lg text-black font-medium">We've dismantled the traditional dashboard and replaced it with a dynamic, AI-driven experience.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Predictive GPA Modeling',
+                title: 'PREDICTIVE GPA MODELING',
                 desc: 'Get accurate forecasts of your final scores based on current study habits and engagement.',
                 icon: BarChart3,
-                color: 'text-primary'
+                color: 'bg-black'
               },
               {
-                title: 'Burnout Counter-Measures',
+                title: 'BURNOUT COUNTER-MEASURES',
                 desc: 'Our AI monitors workload stress and automatically adjusts your schedule to prevent burnout.',
                 icon: AlertCircle,
-                color: 'text-secondary'
+                color: 'bg-brutal-accent'
               },
               {
-                title: 'Market-Ready Pathways',
+                title: 'MARKET-READY PATHWAYS',
                 desc: 'Real-time job market analysis mapped to your current skills for instant career roadmaps.',
                 icon: Target,
-                color: 'text-orange-500'
+                color: 'bg-brutal-secondary'
               }
             ].map((f, i) => (
-              <Card key={i} className="p-10 rounded-[2rem] border-slate-100 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 transition-all group">
-                <div className={`w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform ${f.color}`}>
-                  <f.icon className="w-8 h-8" />
+              <BrutalCard key={i} className="p-8">
+                <div className={`w-16 h-16 ${f.color} border-2 border-black flex items-center justify-center mb-6`}>
+                  <f.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-xl font-black text-slate-900 mb-4">{f.title}</h3>
-                <p className="text-slate-600 font-medium leading-relaxed">{f.desc}</p>
-                <Button variant="ghost" className="mt-6 p-0 font-black text-primary hover:bg-transparent">Explore Metric <ChevronRight className="w-4 h-4 ml-1" /></Button>
-              </Card>
+                <h3 className="text-xl font-black text-black mb-4 uppercase tracking-tight">{f.title}</h3>
+                <p className="text-black font-medium leading-relaxed mb-6">{f.desc}</p>
+                <button className="font-black text-black hover:text-brutal-accent uppercase text-sm tracking-wide flex items-center gap-2 transition-colors">
+                  EXPLORE METRIC <ChevronRight className="w-4 h-4" />
+                </button>
+              </BrutalCard>
             ))}
           </div>
         </div>
       </section>
 
       {/* Institutional CTA */}
-      <section className="py-32 relative group">
+      <section id="institutions" className="py-32 bg-brutal">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-slate-900 rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary rounded-full blur-[180px] opacity-20" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary rounded-full blur-[180px] opacity-20" />
-
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-tight">Empower Your Institution with <span className="text-primary">Intelligence</span></h2>
-              <p className="text-slate-400 text-lg md:text-xl font-medium mb-12">Join forward-thinking universities using GROW-DEX to eliminate student attrition and maximize placement success.</p>
+          <div className="bg-black border-4 border-black shadow-brutal-lg p-12 md:p-24 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-tight uppercase">
+                EMPOWER YOUR INSTITUTION WITH <span className="bg-brutal-accent px-2">INTELLIGENCE</span>
+              </h2>
+              <p className="text-white text-lg md:text-xl font-medium mb-12 opacity-80">
+                Join forward-thinking universities using GROW-DEX to eliminate student attrition and maximize placement success.
+              </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button className="bg-white text-slate-900 hover:bg-slate-100 rounded-2xl font-black px-12 h-16 text-lg shadow-lg">Partner with Us</Button>
-                <Button variant="outline" className="text-white border-2 border-white/40 hover:bg-white/20 hover:border-white/60 rounded-2xl font-black px-12 h-16 text-lg">Platform Demo</Button>
+                <BrutalButton variant="default" className="px-12 py-4 text-lg">
+                  PARTNER WITH US
+                </BrutalButton>
+                <BrutalButton variant="accent" className="px-12 py-4 text-lg">
+                  PLATFORM DEMO
+                </BrutalButton>
               </div>
             </div>
           </div>
@@ -245,42 +218,42 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white pt-24 pb-12">
+      <footer className="bg-white border-t-4 border-black pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-16 mb-24">
             <div className="md:col-span-2">
               <Link href="/" className="flex items-center gap-3 mb-8">
-                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                  <Brain className="w-5 h-5 text-primary-foreground" />
+                <div className="w-10 h-10 bg-black border-2 border-black flex items-center justify-center">
+                  <Brain className="w-6 h-6 text-white" />
                 </div>
-                <span className="font-black text-xl tracking-tighter">GROW-DEX</span>
+                <span className="font-black text-xl tracking-tighter uppercase">GROW-DEX</span>
               </Link>
-              <p className="text-slate-500 font-medium max-w-sm leading-relaxed">
-                We are building the world's most advanced behavioral and academic intelligence engine to empower the next generation of success.
+              <p className="text-black font-medium max-w-sm leading-relaxed">
+                Building the world's most advanced behavioral and academic intelligence engine to empower the next generation of success.
               </p>
             </div>
             <div>
-              <h4 className="font-black text-slate-900 uppercase tracking-widest text-[10px] mb-8">Ecosystem</h4>
+              <h4 className="font-black text-black uppercase tracking-widest text-xs mb-8">ECOSYSTEM</h4>
               <ul className="space-y-4">
-                <li><Link href="#" className="text-sm font-bold text-slate-500 hover:text-primary">Smart Planner</Link></li>
-                <li><Link href="#" className="text-sm font-bold text-slate-500 hover:text-primary">Study Protocol</Link></li>
-                <li><Link href="#" className="text-sm font-bold text-slate-500 hover:text-primary">Market Bridge</Link></li>
+                <li><Link href="#" className="text-sm font-bold text-black hover:text-brutal-accent uppercase">Smart Planner</Link></li>
+                <li><Link href="#" className="text-sm font-bold text-black hover:text-brutal-accent uppercase">Study Protocol</Link></li>
+                <li><Link href="#" className="text-sm font-bold text-black hover:text-brutal-accent uppercase">Market Bridge</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-black text-slate-900 uppercase tracking-widest text-[10px] mb-8">Support</h4>
+              <h4 className="font-black text-black uppercase tracking-widest text-xs mb-8">SUPPORT</h4>
               <ul className="space-y-4">
-                <li><Link href="#" className="text-sm font-bold text-slate-500 hover:text-primary">Help Center</Link></li>
-                <li><Link href="#" className="text-sm font-bold text-slate-500 hover:text-primary">API v2 docs</Link></li>
-                <li><Link href="#" className="text-sm font-bold text-slate-500 hover:text-primary">Safety Council</Link></li>
+                <li><Link href="#" className="text-sm font-bold text-black hover:text-brutal-accent uppercase">Help Center</Link></li>
+                <li><Link href="#" className="text-sm font-bold text-black hover:text-brutal-accent uppercase">API v2 Docs</Link></li>
+                <li><Link href="#" className="text-sm font-bold text-black hover:text-brutal-accent uppercase">Safety Council</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-slate-100 pt-12 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-slate-400 font-bold text-xs uppercase tracking-widest">&copy; 2024 GROW-DEX Intelligence. All rights reserved.</p>
+          <div className="border-t-2 border-black pt-12 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-black font-bold text-xs uppercase tracking-widest">&copy; 2024 GROW-DEX INTELLIGENCE. ALL RIGHTS RESERVED.</p>
             <div className="flex gap-8">
-              <Link href="#" className="text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-slate-900">Privacy</Link>
-              <Link href="#" className="text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-slate-900">Ethics</Link>
+              <Link href="#" className="text-black font-bold text-xs uppercase tracking-widest hover:text-brutal-accent">Privacy</Link>
+              <Link href="#" className="text-black font-bold text-xs uppercase tracking-widest hover:text-brutal-accent">Ethics</Link>
             </div>
           </div>
         </div>
