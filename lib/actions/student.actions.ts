@@ -196,6 +196,39 @@ export async function updateStudentProfile(userId: string, updates: {
 }) {
   const supabase = await createClient()
 
+  // First check if student record exists
+  const { data: existing } = await supabase
+    .from('students')
+    .select('*')
+    .eq('profile_id', userId)
+    .single()
+
+  // If no record exists, create one first
+  if (!existing) {
+    const { data: newStudent, error: createError } = await supabase
+      .from('students')
+      .insert([{
+        profile_id: userId,
+        gpa: updates.gpa || 0,
+        stress_index: updates.stress_index || 50,
+        career_score: updates.career_score || 0,
+        study_streak: updates.study_streak || 0,
+        department: 'Computer Science',
+        semester: 1,
+        year: 1
+      }])
+      .select()
+      .single()
+
+    if (createError) {
+      return { error: createError.message }
+    }
+
+    revalidatePath('/dashboard/student')
+    return { data: newStudent }
+  }
+
+  // Update existing record
   const { data, error } = await supabase
     .from('students')
     .update(updates)
