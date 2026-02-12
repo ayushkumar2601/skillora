@@ -21,10 +21,10 @@ export default function StudentSettingsClient({ user, dashboardData }: StudentSe
   const { student } = dashboardData
 
   const [formData, setFormData] = useState({
-    gpa: student.gpa,
-    stress_index: student.stress_index,
-    career_score: student.career_score,
-    study_streak: student.study_streak,
+    gpa: student.gpa || 0,
+    stress_index: student.stress_index || 0,
+    career_score: student.career_score || 0,
+    study_streak: student.study_streak || 0,
   })
 
   const [isSaving, setIsSaving] = useState(false)
@@ -97,10 +97,10 @@ export default function StudentSettingsClient({ user, dashboardData }: StudentSe
                   <User className="w-8 h-8 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold">{user.profile.full_name}</h2>
-                  <p className="text-sm text-muted-foreground">{user.profile.email}</p>
+                  <h2 className="text-xl font-bold">{user.profile?.full_name || user.user.email}</h2>
+                  <p className="text-sm text-muted-foreground">{user.user.email}</p>
                   <Badge className="mt-2 bg-primary/10 text-primary border-none">
-                    {student.department} • Semester {student.semester}
+                    {student.department || 'Computer Science'} • Semester {student.semester || 1}
                   </Badge>
                 </div>
               </div>
