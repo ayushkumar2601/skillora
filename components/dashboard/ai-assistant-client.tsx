@@ -26,7 +26,7 @@ export default function AIAssistantClient({ user }: { user: any }) {
     const [messages, setMessages] = useState<Message[]>([
         {
             role: 'assistant',
-            content: `Hello ${user.profile.full_name}! I am your GROW-DEX AI Assistant powered by Groq. How can I help you with your studies or career today?`,
+            content: `Hello ${user.profile?.full_name || user.user?.email || 'there'}! I am your GROW-DEX AI Assistant powered by Groq. How can I help you with your studies or career today?`,
         }
     ])
     const [input, setInput] = useState('')
